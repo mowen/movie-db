@@ -1,0 +1,47 @@
+{
+  "name": "movie-rental-db",
+  "version": "0.0.1",
+  "description": "A web app to enable search of a movie rental database.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node -r tsconfig-paths/register start.js",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Martin Owen",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.1.0",
+    "@overnightjs/core": "^1.2.0",
+    "axios": "^0.18.0",
+    "babel-loader": "^8.0.2",
+    "css-loader": "^1.0.0",
+    "express": "^4.16.3",
+    "googleapis": "^33.0.0",
+    "lodash": "^4.17.10",
+    "moviedb-promise": "^1.2.6",
+    "simple-color-print": "^1.0.4",
+    "vue": "^2.5.17",
+    "vue-class-component": "^6.2.0",
+    "vue-router": "^3.0.1",
+    "vue-template-compiler": "^2.5.17"
+  },
+  "devDependencies": {
+    "@types/es6-promise": "^3.3.0",
+    "@types/express": "^4.16.0",
+    "@types/lodash": "^4.14.116",
+    "@types/node": "^10.9.3",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "babel-preset-env": "^1.7.0",
+    "ts-loader": "^5.2.0",
+    "tsconfig-paths": "^3.6.0",
+    "typescript": "^3.0.3",
+    "vue-loader": "^15.4.2",
+    "webpack": "^4.19.1",
+    "webpack-cli": "^3.1.1"
+  }
+}
