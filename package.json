@@ -19,6 +19,7 @@
     "babel-loader": "^8.0.2",
     "css-loader": "^1.0.0",
     "express": "^4.16.3",
+    "firebase": "^5.5.2",
     "googleapis": "^33.0.0",
     "lodash": "^4.17.10",
     "moviedb-promise": "^1.2.6",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@types/es6-promise": "^3.3.0",
     "@types/express": "^4.16.0",
+    "@types/firebase": "^3.2.1",
     "@types/lodash": "^4.14.116",
     "@types/node": "^10.9.3",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",

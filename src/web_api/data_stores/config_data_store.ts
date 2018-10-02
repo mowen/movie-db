@@ -8,6 +8,10 @@ export class TmdbConfig {
     constructor(public apiKey: string) { }
 }
 
+export class FirebaseConfig {
+    constructor(public config: any) { }
+}
+
 export class ConfigDataStore {
 
     private static ConfigFilename: string = 'config.json';
@@ -26,6 +30,11 @@ export class ConfigDataStore {
     async getTmdbConfig(): Promise<TmdbConfig> {
         let config = await this.getConfig();
         return new TmdbConfig(config.tmdb.api_key);
+    }
+
+    async getFirebaseConfig(): Promise<FirebaseConfig> {
+        let config = await this.getConfig();
+        return new FirebaseConfig(config.firebase);
     }
 
     private async getConfig(): Promise<any> {

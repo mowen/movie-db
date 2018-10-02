@@ -1,46 +1,25 @@
-import * as _ from 'lodash';
-import { google } from 'googleapis';
-import { cerr, cwarn } from 'simple-color-print';
-
-import { ConfigDataStore } from '../data_stores/config_data_store';
+import _ from 'lodash';
+import firebase from 'firebase';
 import { MovieHeader } from '../entities/movie_header';
+import { TmdbMovie } from '../entities/tmdb_movie';
 
-interface IMovieDataStore {
-    getAll(): Promise<Array<MovieHeader> | null>
-}
-
-export class MovieDataStore implements IMovieDataStore {
-    private _configDataStore: ConfigDataStore;
-
-    constructor(configDataStore: ConfigDataStore) {
-        this._configDataStore = configDataStore;        
+export class MovieDataStore {
+    async setMovie(header: MovieHeader, detail: TmdbMovie) : Promise<void> {
+        let ref = firebase.database().ref(`/movies/${header.imdbId}`);
+        await ref.set({
+            ourTitle: header.title,
+            format: header.format,
+            tmdbTitle: detail.title,
+            releaseDate: detail.releaseDate,
+            overview: detail.overview,
+            posterUrl: detail.posterUrl,
+            backdropUrl: detail.backdropUrl
+        });
     }
 
-    async getAll() : Promise<Array<MovieHeader> | null> {
-        const sheets = google.sheets('v4');
-
-        let sheetsConfig = await this._configDataStore.getSheetsConfig();
-
-        try {
-            let result = await sheets.spreadsheets.values.get({
-                auth: sheetsConfig.apiKey,
-                spreadsheetId: sheetsConfig.spreadsheetId,
-                range: 'Sheet1!A2:C'
-            });
-
-            let data = result.data;
-            let rows = data.values;
-
-            if (!_.isUndefined(rows) && rows.length) {
-                return rows.map((row: Array<any>) => new MovieHeader(row[0], row[1], row[2]));
-            } else {
-                cwarn('No data found.');
-                return [];
-            }
-        }
-        catch (err) {
-            cerr(`The API returned an error: ${err}`);
-            return null;
-        }
+    async getMovie(imdbId: string): Promise<any> {
+        let ref = firebase.database().ref(`/movies/${imdbId}`);
+        let movieData = await ref.once('value');
+        return movieData.val();
     }
 }

@@ -77,3 +77,4 @@ src/*.js
 build
 
 src/web_api/config.json
+data/

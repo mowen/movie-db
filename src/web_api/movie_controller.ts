@@ -5,17 +5,17 @@ import { cinfo, cerr } from 'simple-color-print';
 
 import { MovieHeader } from './entities/movie_header';
 import { ConfigDataStore } from './data_stores/config_data_store';
-import { MovieDataStore } from './data_stores/movie_data_store';
+import { MovieListing } from './data_stores/movie_listing';
 import { TmdbApi } from './data_stores/tmdb_api';
 
 @Controller('api/movies')
 export class MovieController
 {
-    private _movieDataStore: MovieDataStore;
+    private _movieListing: MovieListing;
     private _tmdbApi: TmdbApi;
 
     constructor(configDataStore: ConfigDataStore) {
-        this._movieDataStore = new MovieDataStore(configDataStore);
+        this._movieListing = new MovieListing(configDataStore);
         this._tmdbApi = new TmdbApi(configDataStore);
     }
 
@@ -24,7 +24,7 @@ export class MovieController
         let data;
 
         try {
-            let movies = await this._movieDataStore.getAll();
+            let movies = await this._movieListing.getAll();
             if (movies != null) {
                 cinfo(`movies.length: ${movies.length}`);
                 data = _.map(movies, (mh: MovieHeader): any => mh.toData());
